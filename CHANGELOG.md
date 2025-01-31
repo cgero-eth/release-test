@@ -1,5 +1,11 @@
 # release-test
 
+## 1.1.1
+
+### Patch Changes
+
+- [`7db2728`](https://github.com/cgero-eth/release-test/commit/7db27283a63670778b55b18b97a96df2a48966d9) Thanks [@cgero-eth](https://github.com/cgero-eth)! - Test patch
+
 ## 1.1.0
 
 ### Minor Changes
