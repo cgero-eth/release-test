@@ -97,4 +97,5 @@ jobs:
         uses: softprops/action-gh-release@v2.2.1
         with:
           prerelease: false
+          tag_name: "v${{ steps.package-version.outputs.current-version}}"
           body: ${{ steps.read-changelog.outputs.changes }}
