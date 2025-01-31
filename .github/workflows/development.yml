@@ -38,6 +38,8 @@ jobs:
         with:
           node-version: ${{ env.NODE_VERSION }}
           cache: ${{ env.NODE_CACHE }}
+      - name: Install dependencies
+        run: yarn install --immutable
       - name: Check changeset
         if: github.ref != 'refs/heads/main'
         run: changeset status --since=main
