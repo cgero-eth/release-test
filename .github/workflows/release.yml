@@ -83,10 +83,14 @@ jobs:
         uses: martinbeentjes/npm-get-version-action@v1.3.1
       - name: Read changelog updates
         id: read-changelog
-        uses: mindsers/changelog-reader-action@v2.2.3
-        with:
+        uses: actions/github-script@v7.0.1
+        env:
           version: "${{ steps.package-version.outputs.current-version }}"
           path: ./CHANGELOG.md
+        with:
+          script: |
+            const readChangelog = require('./.github/workflows/scripts/readChangelog.js');
+            readChangelog({ github, context, core });
       - name: Create release
         uses: softprops/action-gh-release@v2.2.1
         with:
