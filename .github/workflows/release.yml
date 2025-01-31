@@ -99,3 +99,4 @@ jobs:
           prerelease: false
           tag_name: "v${{ steps.package-version.outputs.current-version}}"
           body: ${{ steps.read-changelog.outputs.changes }}
+          token: ${{ secrets.RELEASE_TOKEN }}
