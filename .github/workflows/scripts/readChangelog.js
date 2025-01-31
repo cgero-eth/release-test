@@ -10,6 +10,14 @@ module.exports = async ({ core }) => {
       flag: "r",
     });
 
+    core.info(changelog);
+    core.info(changelog.split(/(?=## \d+\.\d+\.\d+)/g).toString());
+    core.info(
+      changelog
+        .split(/(?=## \d+\.\d+\.\d+)/g)
+        .find((version) => version.startsWith(`## ${version}`))
+    );
+
     const versionChanges = changelog
       .split(/(?=## \d+\.\d+\.\d+)/g)
       .find((version) => version.startsWith(`## ${version}`))
@@ -19,6 +27,6 @@ module.exports = async ({ core }) => {
     core.setOutput("changes", versionChanges);
     core.info(`Changes retrieved successfully.`);
   } catch (error) {
-    core.error(`Error retrieving changes for version ${version}.`);
+    core.setFailed(`Error retrieving changes for version ${version}: ${error}`);
   }
 };
