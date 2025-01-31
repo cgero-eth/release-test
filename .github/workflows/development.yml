@@ -44,7 +44,7 @@ jobs:
         run: yarn install --immutable
       - name: Check changeset
         if: github.ref != 'refs/heads/main'
-        run: yarn changeset status --since=main
+        run: yarn changeset status --since origin/main
 
   deploy:
     needs: test
