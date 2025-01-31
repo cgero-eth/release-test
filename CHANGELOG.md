@@ -1,5 +1,11 @@
 # release-test
 
+## 1.1.4
+
+### Patch Changes
+
+- [`845a909`](https://github.com/cgero-eth/release-test/commit/845a90959c00e63b416751affb3c972a7f33140d) Thanks [@cgero-eth](https://github.com/cgero-eth)! - Fix
+
 ## 1.1.3
 
 ### Patch Changes
