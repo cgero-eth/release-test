@@ -12,10 +12,6 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
-env:
-  APP_ENV: 'production'
-  APP_DOMAIN: 'app-next.aragon.org'
-
 jobs:
   versioning:
     runs-on: ubuntu-latest
@@ -49,7 +45,7 @@ jobs:
     needs: versioning
     if: ${{ always() }}
     with:
-      env: ${{ env.APP_ENV }}
+      env: 'production'
       # Checkout the main branch to ensure the latest commit with version bumps is used
       checkout-ref: main
 
@@ -58,7 +54,7 @@ jobs:
     needs: build
     secrets: inherit
     with:
-      domain: ${{ env.APP_DOMAIN }}
+      domain: 'app-next.aragon.org'
       prod: true
 
   release:

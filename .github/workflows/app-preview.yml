@@ -13,15 +13,12 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
-env:
-  APP_ENV: 'preview'
-
 jobs:
   build:
     uses: ./.github/workflows/shared-build.yml
     if: contains(github.event.pull_request.labels.*.name, 'preview')
     with:
-      env: ${{ env.APP_ENV }}
+      env: 'preview'
 
   deploy:
     uses: ./.github/workflows/shared-deploy.yml

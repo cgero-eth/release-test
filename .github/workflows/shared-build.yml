@@ -20,10 +20,10 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      # - name: Setup
-      #   uses: cgero-eth/release-test/.github/workflows/actions/setup.yml@main
-      #   with:
-      #     checkout-ref: ${{ inputs.checkout-ref }}
+      - name: Setup
+        uses: cgero-eth/release-test/.github/workflows/actions/setup.yml@main
+        with:
+          checkout-ref: ${{ inputs.checkout-ref }}
       - name: Restore NextJs cache
         uses: actions/cache@v4.2.0
         with:

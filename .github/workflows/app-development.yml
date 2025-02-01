@@ -14,10 +14,6 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
-env:
-  APP_ENV: 'development'
-  APP_DOMAIN: 'dev.app-next.aragon.org'
-
 jobs:
   build:
     uses: ./.github/workflows/shared-build.yml
@@ -57,5 +53,5 @@ jobs:
 #   uses: ./.github/workflows/shared-deploy.yml
 #   secrets: inherit
 #   with:
-#     domain: ${{ env.APP_DOMAIN }}
+#     domain: 'dev.app-next.aragon.org'
 #
