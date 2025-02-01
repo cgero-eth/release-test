@@ -1,14 +1,18 @@
+# The "Shared Build" workflow builds the application for the specified environment by restoring cache, running the
+# build, and storing the Next.js build artifacts under the "nextjs-build" name. It is triggered by a `workflow_call`
+# and uses the environment variable specified in the input to configure the build.
+
 name: Shared Build App
 
 on:
   workflow_call:
     inputs:
       checkout-ref:
-        description: "The Git reference (e.g., branch or commit) to checkout"
+        description: 'The Git reference (e.g., branch or commit) to checkout'
         required: false
         type: string
       env:
-        description: "Used to setup the correct environment variables for the build"
+        description: 'Used to setup the correct environment variables for the build'
         required: true
         type: string
 

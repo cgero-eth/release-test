@@ -11,14 +11,14 @@ concurrency:
   cancel-in-progress: true
 
 env:
-  APP_ENV: "staging"
-  APP_DOMAIN: "stg.app-next.aragon.org"
+  APP_ENV: 'staging'
+  APP_DOMAIN: 'stg.app-next.aragon.org'
 
 jobs:
   build:
     uses: ./.github/workflows/shared-build.yml
     with:
-      env: "${{ env.APP_ENV }}"
+      env: ${{ env.APP_ENV }}
 
   deploy:
     uses: ./.github/workflows/shared-deploy.yml

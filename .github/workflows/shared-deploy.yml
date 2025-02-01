@@ -1,19 +1,23 @@
+# The "Shared Deploy" workflow deploys the application to Vercel, either in production or preview mode based on the
+# `prod` input. It retrieves the build artifacts, prepares secrets, bundles the Vercel application, and deploys it.
+# If a custom domain is specified, it assigns the deployment URL to that domain.
+
 name: Shared Deploy App
 
 on:
   workflow_call:
     inputs:
       domain:
-        description: "Assign the new deployment URL to the speficied input when set"
+        description: 'Assign the new deployment URL to the speficied input when set'
         required: false
         type: string
       prod:
-        description: "Build and deploys a production application when set"
+        description: 'Build and deploys a production application when set'
         required: false
         type: boolean
     outputs:
       deploymentUrl:
-        description: "The URL of the Vercel deployment"
+        description: 'The URL of the Vercel deployment'
         value: ${{ jobs.deploy.deploymentUrl }}
 
 env:

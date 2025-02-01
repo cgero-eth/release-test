@@ -1,3 +1,7 @@
+# The "App Development" workflow runs on pull requests and pushes to the main branch. It builds a development version
+# of the application, runs checks (type checking, linting, tests, etc.), and deploys the application only for pushes to
+# the main branch.
+
 name: App Development
 
 on:
