@@ -1,0 +1,28 @@
+# The "App Staging" workflow is manually triggered to deploy the application to the staging environment. It builds the
+# staging version of the application and deploys it for testing before releasing to production.
+
+name: App Staging
+
+on:
+  workflow_dispatch: {}
+
+concurrency:
+  group: staging-deployment
+  cancel-in-progress: true
+
+env:
+  APP_ENV: "staging"
+  APP_DOMAIN: "stg.app-next.aragon.org"
+
+jobs:
+  build:
+    uses: ./.github/workflows/shared-build.yml
+    with:
+      env: "${{ env.APP_ENV }}"
+
+  deploy:
+    uses: ./.github/workflows/shared-deploy.yml
+    needs: build
+    secrets: inherit
+    with:
+      domain: ${{ env.APP_DOMAIN }}

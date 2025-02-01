@@ -1,4 +1,9 @@
-name: Release
+# The "App Release" workflow is manually triggered to release the application to production. It builds a production
+# version of the application and deploys it to the production environment. The workflow runs versioning and release
+# steps only when triggered on the main branch (default application release), allowing the workflow to also be used on
+# other branches for hotfix deployments.
+
+name: App Release
 
 on:
   workflow_dispatch:
@@ -8,32 +13,26 @@ concurrency:
   cancel-in-progress: true
 
 env:
-  NODE_VERSION: 20
-  NODE_CACHE: "yarn"
+  APP_ENV: "production"
+  APP_DOMAIN: "app-next.aragon.org"
 
 jobs:
   versioning:
     runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/main'
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4.2.2
+      - name: Setup
+        uses: aragon/app-next/.github/workflows/actions/setup.yml@main
         with:
-          token: ${{ secrets.RELEASE_TOKEN }}
-      - uses: actions/setup-node@v4.2.0
-        with:
-          node-version: ${{ env.NODE_VERSION }}
-          cache: ${{ env.NODE_CACHE }}
+          token: ${{ secrets.ARABOT_PAT_TRIGGER_WORKFLOW }}
       - name: Setup Git config
         run: |
-          git config --global user.name "cgero-eth"
-          git config --global user.email "ruggero.cino@gmail.com"
-      - name: Install dependencies
-        run: yarn install --immutable
+          git config --global user.name "Arabot-1"
+          git config --global user.email "arabot-1@users.noreply.github.com"
       - name: Update version and changelog
         run: yarn changeset version
         env:
-          GITHUB_TOKEN: ${{ secrets.RELEASE_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.ARABOT_PAT_TRIGGER_WORKFLOW }}
       - name: Create tag
         run: yarn changeset tag
       - name: Get package version
@@ -45,41 +44,33 @@ jobs:
           git commit -am "Release v${{ steps.package-version.outputs.current-version}}"
           git push --follow-tags
 
-  prepare:
-    runs-on: ubuntu-latest
+  build:
+    uses: ./.github/workflows/shared-build.yml
     needs: versioning
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4.2.2
-      - uses: actions/setup-node@v4.2.0
-        with:
-          node-version: ${{ env.NODE_VERSION }}
-          cache: ${{ env.NODE_CACHE }}
-      - name: Build application
-        run: echo "Build application"
+    if: ${{ always() }}
+    with:
+      env: ${{ env.APP_ENV }}
+      # Checkout the main branch to ensure the latest commit with version bumps is used
+      checkout-ref: main
 
   deploy:
-    needs: prepare
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4.2.2
-      - uses: actions/setup-node@v4.2.0
-        with:
-          node-version: ${{ env.NODE_VERSION }}
-          cache: ${{ env.NODE_CACHE }}
-      - name: Deploy application
-        run: echo "Deploy application"
+    uses: ./.github/workflows/shared-deploy.yml
+    needs: build
+    secrets: inherit
+    with:
+      domain: ${{ env.APP_DOMAIN }}
+      prod: true
 
   release:
     needs: deploy
     runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/main'
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4.2.2
+      - name: Setup
+        uses: aragon/app-next/.github/workflows/actions/setup.yml@main
         with:
-          ref: main
+          # Checkout the main branch to ensure the latest commit with version bumps is used
+          checkout-ref: main
       - name: Get package version
         id: package-version
         uses: martinbeentjes/npm-get-version-action@v1.3.1
@@ -99,4 +90,4 @@ jobs:
           prerelease: false
           tag_name: "v${{ steps.package-version.outputs.current-version}}"
           body: ${{ steps.read-changelog.outputs.changes }}
-          token: ${{ secrets.RELEASE_TOKEN }}
+          token: ${{ secrets.ARABOT_PAT_TRIGGER_WORKFLOW }}

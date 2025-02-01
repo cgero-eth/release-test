@@ -1,15 +1,29 @@
 {
   "name": "release-test",
-  "version": "1.1.4",
-  "description": "Test",
-  "main": "index.js",
+  "version": "0.1.0",
+  "private": true,
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "cross-env yarn setup local && next dev",
+    "build": "next build --no-lint",
+    "start": "next start",
+    "test": "echo 'test'",
+    "test:coverage": "echo 'test-coverage'",
+    "lint": "echo 'lint'",
+    "prettify": "echo 'prettify'",
+    "type-check": "echo 'type check'",
+    "setup": "./scripts/setupEnv.sh"
   },
-  "author": "rr",
-  "license": "ISC",
+  "dependencies": {
+    "next": "^15.1.6",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
+  },
   "devDependencies": {
     "@changesets/changelog-github": "^0.5.0",
-    "@changesets/cli": "^2.27.12"
+    "@changesets/cli": "^2.27.12",
+    "@types/react": "19.0.8",
+    "cross-env": "^7.0.3",
+    "typescript": "^5.7.3",
+    "vercel": "^39.3.0"
   }
 }
