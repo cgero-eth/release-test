@@ -1,29 +1,29 @@
-name: "Setup"
-description: "This action checks out the commit, sets up Node and installs the dependencies using yarn."
+name: 'Setup'
+description: 'This action checks out the commit, sets up Node and installs the dependencies using yarn.'
 
 inputs:
   checkout-ref:
-    description: "The Git reference (e.g., branch or commit) to checkout"
+    description: 'The Git reference (e.g., branch or commit) to checkout'
     required: false
   fetch-depth:
-    description: "The number of commits to fetch when checking out the repository"
+    description: 'The number of commits to fetch when checking out the repository'
     required: false
-    default: "1"
+    default: '1'
   token:
-    description: "GitHub token used for authentication"
+    description: 'GitHub token used for authentication'
     required: false
     default: ${{ github.token }}
   node-version:
-    description: "The version of Node.js to use for the workflow"
+    description: 'The version of Node.js to use for the workflow'
     required: false
-    default: 20
+    default: '20'
   node-cache:
-    description: "Specifies which package manager to use for caching"
+    description: 'Specifies which package manager to use for caching'
     required: false
-    default: "yarn"
+    default: 'yarn'
 
 runs:
-  using: "composite"
+  using: 'composite'
   steps:
     - name: Checkout repository
       uses: actions/checkout@v4.2.2
@@ -39,4 +39,5 @@ runs:
         cache: ${{ inputs.node-cache }}
 
     - name: Install dependencies
+      shell: bash
       run: yarn install --immutable
