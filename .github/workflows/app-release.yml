@@ -18,7 +18,7 @@ jobs:
     if: github.ref == 'refs/heads/main'
     steps:
       - name: Setup
-        uses: cgero-eth/release-test/.github/workflows/actions/setup.yml@main
+        uses: cgero-eth/release-test/.github/actions/setup.yml@main
         with:
           token: ${{ secrets.ARABOT_PAT_TRIGGER_WORKFLOW }}
       - name: Setup Git config
@@ -63,7 +63,7 @@ jobs:
     if: github.ref == 'refs/heads/main'
     steps:
       - name: Setup
-        uses: cgero-eth/release-test/.github/workflows/actions/setup.yml@main
+        uses: cgero-eth/release-test/.github/actions/setup.yml@main
         with:
           # Checkout the main branch to ensure the latest commit with version bumps is used
           checkout-ref: main

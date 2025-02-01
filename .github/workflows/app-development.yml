@@ -15,10 +15,10 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  # build:
-  #   uses: ./.github/workflows/shared-build.yml
-  #   with:
-  #     env: 'development'
+  build:
+    uses: ./.github/workflows/shared-build.yml
+    with:
+      env: 'development'
 
   test:
     needs: build
@@ -47,10 +47,10 @@ jobs:
         if: github.event_name == 'pull_request'
         run: yarn changeset status --since origin/main
 
-  # deploy:
-  #   needs: test
-  #   if: github.event_name == 'push' && github.ref == 'refs/heads/main'
-  #   uses: ./.github/workflows/shared-deploy.yml
-  #   secrets: inherit
-  #   with:
-  #     domain: 'dev.app-next.aragon.org'
+  deploy:
+    needs: test
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    uses: ./.github/workflows/shared-deploy.yml
+    secrets: inherit
+    with:
+      domain: 'dev.app-next.aragon.org'
