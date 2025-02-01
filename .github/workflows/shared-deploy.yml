@@ -28,6 +28,8 @@ env:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    outputs:
+      deploymentUrl: ${{ steps.set-deployment-url.outputs.deploymentUrl }}
     steps:
       - name: Setup
         uses: cgero-eth/release-test/.github/actions/setup@main
@@ -44,9 +46,8 @@ jobs:
       - name: Vercel deployment
         run: yarn vercel deploy --prebuilt ${{ env.VERCEL_ARGS }} --skip-domain --yes --token=${{ secrets.VERCEL_TOKEN }} --scope ${{ secrets.VERCEL_SCOPE }} > deployment-url.txt
       - name: Set output
-        run: echo "deploymentUrl=$(cat deployment-url.txt)" >> "$GITHUB_OUTPUT"
+        id: set-deployment-url
+        run: echo "deploymentUrl=$(cat deployment-url.txt)" >> $GITHUB_OUTPUT
       - name: Set deployment alias
         if: ${{ inputs.domain != '' }}
-        run: |
-          DEPLOYMENT_URL=`cat deployment-url.txt`
-          yarn vercel alias $DEPLOYMENT_URL ${{ inputs.domain }} --token=${{ secrets.VERCEL_TOKEN }} --scope ${{ secrets.VERCEL_SCOPE }}
+        run: yarn vercel alias ${{ steps.set-deployment-url.outputs.deploymentUrl }} ${{ inputs.domain }} --token=${{ secrets.VERCEL_TOKEN }} --scope ${{ secrets.VERCEL_SCOPE }}
