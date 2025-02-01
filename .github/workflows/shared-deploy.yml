@@ -30,7 +30,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Setup
-        uses: aragon/app-next/.github/workflows/actions/setup.yml@main
+        uses: cgero-eth/release-test/.github/workflows/actions/setup.yml@main
       - name: Retrieve NextJs build
         uses: actions/download-artifact@v4.1.8
         with:

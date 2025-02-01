@@ -13,8 +13,8 @@ concurrency:
   cancel-in-progress: true
 
 env:
-  APP_ENV: "production"
-  APP_DOMAIN: "app-next.aragon.org"
+  APP_ENV: 'production'
+  APP_DOMAIN: 'app-next.aragon.org'
 
 jobs:
   versioning:
@@ -22,7 +22,7 @@ jobs:
     if: github.ref == 'refs/heads/main'
     steps:
       - name: Setup
-        uses: aragon/app-next/.github/workflows/actions/setup.yml@main
+        uses: cgero-eth/release-test/.github/workflows/actions/setup.yml@main
         with:
           token: ${{ secrets.ARABOT_PAT_TRIGGER_WORKFLOW }}
       - name: Setup Git config
@@ -67,7 +67,7 @@ jobs:
     if: github.ref == 'refs/heads/main'
     steps:
       - name: Setup
-        uses: aragon/app-next/.github/workflows/actions/setup.yml@main
+        uses: cgero-eth/release-test/.github/workflows/actions/setup.yml@main
         with:
           # Checkout the main branch to ensure the latest commit with version bumps is used
           checkout-ref: main
@@ -78,7 +78,7 @@ jobs:
         id: read-changelog
         uses: actions/github-script@v7.0.1
         env:
-          version: "${{ steps.package-version.outputs.current-version }}"
+          version: '${{ steps.package-version.outputs.current-version }}'
           path: ./CHANGELOG.md
         with:
           script: |
@@ -88,6 +88,6 @@ jobs:
         uses: softprops/action-gh-release@v2.2.1
         with:
           prerelease: false
-          tag_name: "v${{ steps.package-version.outputs.current-version}}"
+          tag_name: 'v${{ steps.package-version.outputs.current-version}}'
           body: ${{ steps.read-changelog.outputs.changes }}
           token: ${{ secrets.ARABOT_PAT_TRIGGER_WORKFLOW }}

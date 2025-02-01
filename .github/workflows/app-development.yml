@@ -29,7 +29,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Setup
-        uses: aragon/app-next/.github/workflows/actions/setup.yml@main
+        uses: cgero-eth/release-test/.github/workflows/actions/setup.yml@main
         with:
           # Checkout full history to correclty check changeset status
           fetch-depth: 0
