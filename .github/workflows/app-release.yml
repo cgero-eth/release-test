@@ -20,15 +20,15 @@ jobs:
       - name: Setup
         uses: cgero-eth/release-test/.github/actions/setup@main
         with:
-          token: ${{ secrets.ARABOT_PAT_TRIGGER_WORKFLOW }}
+          token: ${{ secrets.RELEASE_TOKEN }}
       - name: Setup Git config
         run: |
-          git config --global user.name "Arabot-1"
-          git config --global user.email "arabot-1@users.noreply.github.com"
+          git config --global user.name "cgero-eth"
+          git config --global user.email "ruggero.cino@gmail.com"
       - name: Update version and changelog
         run: yarn changeset version
         env:
-          GITHUB_TOKEN: ${{ secrets.ARABOT_PAT_TRIGGER_WORKFLOW }}
+          GITHUB_TOKEN: ${{ secrets.RELEASE_TOKEN }}
       - name: Create tag
         run: yarn changeset tag
       - name: Get package version
@@ -54,7 +54,7 @@ jobs:
     needs: build
     secrets: inherit
     with:
-      domain: 'app-next.aragon.org'
+      domain: 'cgero-release-test.vercel.app'
       prod: true
 
   release:
@@ -86,4 +86,4 @@ jobs:
           prerelease: false
           tag_name: 'v${{ steps.package-version.outputs.current-version}}'
           body: ${{ steps.read-changelog.outputs.changes }}
-          token: ${{ secrets.ARABOT_PAT_TRIGGER_WORKFLOW }}
+          token: ${{ secrets.RELEASE_TOKEN }}

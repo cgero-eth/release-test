@@ -21,4 +21,4 @@ jobs:
     needs: build
     secrets: inherit
     with:
-      domain: 'stg.app-next.aragon.org'
+      domain: 'stg-cgero-release-test.vercel.app'
