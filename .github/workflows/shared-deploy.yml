@@ -18,7 +18,7 @@ on:
     outputs:
       deploymentUrl:
         description: 'The URL of the Vercel deployment'
-        value: ${{ jobs.deploy.deploymentUrl }}
+        value: ${{ jobs.deploy.outputs.deploymentUrl }}
 
 env:
   VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
