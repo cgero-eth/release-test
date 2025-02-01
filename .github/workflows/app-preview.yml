@@ -1,6 +1,3 @@
-# The "App Preview" workflow runs when a pull request is labeled with "preview" or updated. It builds a preview version
-# of the application, deploys a preview environment, and comments the deployment URL on the pull request for easy access.
-
 name: App Preview
 
 on:
@@ -14,7 +11,7 @@ concurrency:
   cancel-in-progress: true
 
 env:
-  APP_ENV: "preview"
+  APP_ENV: 'preview'
 
 jobs:
   build:
@@ -35,6 +32,6 @@ jobs:
       - name: Comment preview PR
         uses: thollander/actions-comment-pull-request@v3.0.1
         with:
-          message: "🚀 **Preview Deployment:** [View Here](${{ needs.deploy.outputs.deploymentUrl }})"
+          message: '🚀 **Preview Deployment:** [View Here](${{ needs.deploy.outputs.deploymentUrl }})'
           comment-tag: preview-url
           github-token: ${{ secrets.GITHUB_TOKEN }}
