@@ -22,7 +22,7 @@ jobs:
   build:
     uses: ./.github/workflows/shared-build.yml
     with:
-      env: ${{ env.APP_ENV }}
+      appEnv: ${{ env.APP_ENV }}
 #
 # test:
 #   needs: build
