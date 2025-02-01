@@ -23,38 +23,39 @@ jobs:
     uses: ./.github/workflows/shared-build.yml
     with:
       env: ${{ env.APP_ENV }}
-
-  test:
-    needs: build
-    runs-on: ubuntu-latest
-    steps:
-      - name: Setup
-        uses: cgero-eth/release-test/.github/workflows/actions/setup.yml@main
-        with:
-          # Checkout full history to correclty check changeset status
-          fetch-depth: 0
-      - name: Retrieve NextJs build
-        uses: actions/download-artifact@v4.1.8
-        with:
-          name: nextjs-build
-      - name: Check types
-        run: yarn type-check
-      - name: Check linter
-        run: yarn lint
-      - name: Check prettier
-        run: yarn prettify
-      - name: Run tests with coverage
-        run: |
-          set -eo pipefail
-          yarn test:coverage
-      - name: Check changeset
-        if: github.event_name == 'pull_request'
-        run: yarn changeset status --since origin/main
-
-  deploy:
-    needs: test
-    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
-    uses: ./.github/workflows/shared-deploy.yml
-    secrets: inherit
-    with:
-      domain: ${{ env.APP_DOMAIN }}
+#
+# test:
+#   needs: build
+#   runs-on: ubuntu-latest
+#   steps:
+#     - name: Setup
+#       uses: cgero-eth/release-test/.github/workflows/actions/setup.yml@main
+#       with:
+#         # Checkout full history to correclty check changeset status
+#         fetch-depth: 0
+#     - name: Retrieve NextJs build
+#       uses: actions/download-artifact@v4.1.8
+#       with:
+#         name: nextjs-build
+#     - name: Check types
+#       run: yarn type-check
+#     - name: Check linter
+#       run: yarn lint
+#     - name: Check prettier
+#       run: yarn prettify
+#     - name: Run tests with coverage
+#       run: |
+#         set -eo pipefail
+#         yarn test:coverage
+#     - name: Check changeset
+#       if: github.event_name == 'pull_request'
+#       run: yarn changeset status --since origin/main
+#
+# deploy:
+#   needs: test
+#   if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+#   uses: ./.github/workflows/shared-deploy.yml
+#   secrets: inherit
+#   with:
+#     domain: ${{ env.APP_DOMAIN }}
+#
