@@ -2,7 +2,7 @@
 # build, and storing the Next.js build artifacts under the "nextjs-build" name. It is triggered by a `workflow_call`
 # and uses the environment variable specified in the input to configure the build.
 
-name: Shared Build App
+name: App Shared Build
 
 on:
   workflow_call:
@@ -40,6 +40,6 @@ jobs:
         with:
           name: nextjs-build
           path: |
-            ${{ github.workspace }}/.next
+            ${{ github.workspace }}/.next/
             ${{ github.workspace }}/.env.local
             ${{ github.workspace }}/next-env.d.ts

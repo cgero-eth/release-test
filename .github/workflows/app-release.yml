@@ -1,7 +1,5 @@
-# The "App Release" workflow is manually triggered to release the application to production. It builds a production
-# version of the application and deploys it to the production environment. The workflow runs versioning and release
-# steps only when triggered on the main branch (default application release), allowing the workflow to also be used on
-# other branches for hotfix deployments.
+# The "App Release" workflow is manually triggered to release the application to production. It updates the version and
+# changelog, creates a new tag, commits the changes, and pushes them to the repository when triggered on the main branch.
 
 name: App Release
 
@@ -13,7 +11,7 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  versioning:
+  release:
     runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/main'
     steps:
@@ -39,51 +37,3 @@ jobs:
           git add --all
           git commit -am "Release v${{ steps.package-version.outputs.current-version}}"
           git push --follow-tags
-
-  build:
-    uses: ./.github/workflows/shared-build.yml
-    needs: versioning
-    if: ${{ always() }}
-    with:
-      env: 'production'
-      # Checkout the main branch to ensure the latest commit with version bumps is used
-      checkout-ref: main
-
-  deploy:
-    uses: ./.github/workflows/shared-deploy.yml
-    needs: build
-    secrets: inherit
-    with:
-      domain: 'cgero-release-test.vercel.app'
-      prod: true
-
-  release:
-    needs: deploy
-    runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/main'
-    steps:
-      - name: Setup
-        uses: cgero-eth/release-test/.github/actions/setup@main
-        with:
-          # Checkout the main branch to ensure the latest commit with version bumps is used
-          checkout-ref: main
-      - name: Get package version
-        id: package-version
-        uses: martinbeentjes/npm-get-version-action@v1.3.1
-      - name: Read changelog updates
-        id: read-changelog
-        uses: actions/github-script@v7.0.1
-        env:
-          version: '${{ steps.package-version.outputs.current-version }}'
-          path: ./CHANGELOG.md
-        with:
-          script: |
-            const readChangelog = require('./.github/workflows/scripts/readChangelog.js');
-            readChangelog({ github, context, core });
-      - name: Create release
-        uses: softprops/action-gh-release@v2.2.1
-        with:
-          prerelease: false
-          tag_name: 'v${{ steps.package-version.outputs.current-version}}'
-          body: ${{ steps.read-changelog.outputs.changes }}
-          token: ${{ secrets.RELEASE_TOKEN }}

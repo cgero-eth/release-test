@@ -2,7 +2,7 @@
 # `prod` input. It retrieves the build artifacts, prepares secrets, bundles the Vercel application, and deploys it.
 # If a custom domain is specified, it assigns the deployment URL to that domain.
 
-name: Shared Deploy App
+name: App Shared Deploy
 
 on:
   workflow_call:
