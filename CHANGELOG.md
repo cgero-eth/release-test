@@ -1,5 +1,11 @@
 # release-test
 
+## 1.2.1
+
+### Patch Changes
+
+- [`fbc71f3`](https://github.com/cgero-eth/release-test/commit/fbc71f35bf79cbe0eea81678a488cf0096ab9f43) Thanks [@cgero-eth](https://github.com/cgero-eth)! - Fix release
+
 ## 1.2.0
 
 ### Minor Changes
