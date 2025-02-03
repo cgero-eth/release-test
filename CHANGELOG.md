@@ -1,5 +1,17 @@
 # release-test
 
+## 1.4.0
+
+### Minor Changes
+
+- [`3e2b8c4`](https://github.com/cgero-eth/release-test/commit/3e2b8c4f48779ffb879ec37d4e9d64be307c09cb) Thanks [@cgero-eth](https://github.com/cgero-eth)! - Test feat
+
+### Patch Changes
+
+- [#7](https://github.com/cgero-eth/release-test/pull/7) [`6aa809b`](https://github.com/cgero-eth/release-test/commit/6aa809bfde4c9f596481e48eff0f42a8b5577a73) Thanks [@cgero-eth](https://github.com/cgero-eth)! - Fix github-token
+
+- [`9a8f5b2`](https://github.com/cgero-eth/release-test/commit/9a8f5b2c49fd047feedf7ee909732481867f54d4) Thanks [@cgero-eth](https://github.com/cgero-eth)! - Update release workflow
+
 ## 1.3.0
 
 ### Minor Changes
