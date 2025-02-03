@@ -12,7 +12,7 @@ on:
         required: false
         type: string
       env:
-        description: 'Environment to fetch the Github secrets from'
+        description: 'Environment to get the Github secrets and variables from'
         required: true
         type: string
     outputs:
@@ -29,7 +29,6 @@ env:
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    needs: set-environment
     environment: ${{ inputs.env }}
     outputs:
       deploymentUrl: ${{ steps.set-deployment-url.outputs.deploymentUrl }}
