@@ -17,16 +17,16 @@ jobs:
     steps:
       - name: Setup
         uses: cgero-eth/release-test/.github/actions/setup@main
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
+        # with:
+        #   token: ${{ secrets.GITHUB_TOKEN }}
       - name: Setup Git config
         run: |
           git config --global user.name "Continuous Integration"
           git config --global user.email "username@users.noreply.github.com"
       - name: Update version and changelog
         run: yarn changeset version
-        # env:
-        #   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Create tag
         run: yarn changeset tag
       - name: Get package version
