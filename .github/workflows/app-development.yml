@@ -54,4 +54,4 @@ jobs:
     secrets: inherit
     with:
       domain: 'dev-cgero-release-test.vercel.app'
-      githubEnv: 'development'
+      env: 'development'

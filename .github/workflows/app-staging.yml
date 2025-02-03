@@ -22,4 +22,4 @@ jobs:
     secrets: inherit
     with:
       domain: 'stg-cgero-release-test.vercel.app'
-      githubEnv: 'staging'
+      env: 'staging'
