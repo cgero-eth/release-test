@@ -20,8 +20,6 @@ jobs:
     steps:
       - name: Setup
         uses: cgero-eth/release-test/.github/actions/setup@main
-        # with:
-        #   token: ${{ secrets.GITHUB_TOKEN }}
       - name: Setup Git config
         run: |
           git config --global user.name "Continuous Integration"
@@ -56,4 +54,3 @@ jobs:
           prerelease: false
           tag_name: 'v${{ steps.package-version.outputs.current-version}}'
           body: ${{ steps.read-changelog.outputs.changes }}
-          # token: ${{ secrets.RELEASE_TOKEN }}
