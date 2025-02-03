@@ -1,5 +1,15 @@
 # release-test
 
+## 1.3.0
+
+### Minor Changes
+
+- [#5](https://github.com/cgero-eth/release-test/pull/5) [`f103049`](https://github.com/cgero-eth/release-test/commit/f10304975c23e7ebbfc597cb7a7f19f7dc8545f7) Thanks [@cgero-eth](https://github.com/cgero-eth)! - Test implementation of new feature
+
+### Patch Changes
+
+- [#6](https://github.com/cgero-eth/release-test/pull/6) [`f201a11`](https://github.com/cgero-eth/release-test/commit/f201a11e5f0707363b87765d483cb7d3c5697739) Thanks [@cgero-eth](https://github.com/cgero-eth)! - Fix test
+
 ## 1.2.1
 
 ### Patch Changes
