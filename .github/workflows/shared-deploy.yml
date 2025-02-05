@@ -33,8 +33,6 @@ jobs:
     outputs:
       deploymentUrl: ${{ steps.set-deployment-url.outputs.deploymentUrl }}
     steps:
-      - name: Test
-        run: echo ${{ vars.TEST }}
       - name: Setup
         uses: cgero-eth/release-test/.github/actions/setup@main
       - name: Retrieve NextJs build
