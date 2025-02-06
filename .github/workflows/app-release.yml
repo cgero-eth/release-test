@@ -14,12 +14,11 @@ jobs:
   release:
     runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/main'
-    permissions:
-      contents: write
-      pull-requests: read
     steps:
       - name: Setup
         uses: cgero-eth/release-test/.github/actions/setup@main
+        with:
+          token: ${{ secrets.RELEASE_TOKEN }}
       - name: Setup Git config
         run: |
           git config --global user.name "Continuous Integration"
@@ -27,7 +26,7 @@ jobs:
       - name: Update version and changelog
         run: yarn changeset version
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.RELEASE_TOKEN }}
       - name: Create tag
         run: yarn changeset tag
       - name: Get package version
@@ -54,3 +53,4 @@ jobs:
           prerelease: false
           tag_name: 'v${{ steps.package-version.outputs.current-version}}'
           body: ${{ steps.read-changelog.outputs.changes }}
+          token: ${{ secrets.RELEASE_TOKEN }}
