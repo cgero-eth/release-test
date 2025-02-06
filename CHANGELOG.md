@@ -1,5 +1,11 @@
 # release-test
 
+## 1.5.1
+
+### Patch Changes
+
+- [`0f80b6a`](https://github.com/cgero-eth/release-test/commit/0f80b6a356274933ba10e5d1cd53c8decc271f19) Thanks [@cgero-eth](https://github.com/cgero-eth)! - Test workflow with protection
+
 ## 1.5.0
 
 ### Minor Changes
