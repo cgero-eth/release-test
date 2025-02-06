@@ -1,5 +1,11 @@
 # release-test
 
+## 1.5.0
+
+### Minor Changes
+
+- [#8](https://github.com/cgero-eth/release-test/pull/8) [`9fe7786`](https://github.com/cgero-eth/release-test/commit/9fe77868ad455ef3a8991b7fde10f8fb5672e15c) Thanks [@cgero-eth](https://github.com/cgero-eth)! - New feat
+
 ## 1.4.0
 
 ### Minor Changes
